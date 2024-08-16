@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function() {
     delButton.addEventListener("click", function(e) {
         cartInfo.classList.remove("active");
         emptyCart.classList.add("active");
+        document.querySelector(".image .qty").style.display = "none"
+
 });
 
 
@@ -59,31 +61,30 @@ document.addEventListener("DOMContentLoaded", function() {
     var i = 1;
     
     function changeImage(nextImage) {
+        i = nextImage;
+        i === 5 ? i = 1 : i === 0 ? i = 4 : null;
+    
         img.classList.add("fade-out");
-
-        img.addEventListener('transitionend', function() {
-            i = nextImage;
-            i === 5 ? i = 1 : i === 0 ? i = 4 : null;
-
+    
+        setTimeout(function() {
             img.src = `images/image-product-${i}.jpg`;
-
             img.classList.remove('fade-out');
             img.classList.add('fade-in');
-
-            img.addEventListener('transitionend', function() {
+    
+            setTimeout(function() {
                 img.classList.remove('fade-in');
-            }, { once: true });
-
-        }, { once: true });
+            }, 500);
+        }, 500);
     }
-
+    
     next.addEventListener("click", function(e) {
         changeImage(i + 1);
     });
-
+    
     previous.addEventListener("click", function(e) {
         changeImage(i - 1);
     });
+    
 
     let qty = document.querySelector(".count .number");
     let increment = document.querySelector(".count .increment");
@@ -129,23 +130,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const thumbnails = document.querySelectorAll('.product-images .images img');
     const mainImage = document.querySelector('.main-image img');
-
+    
     thumbnails.forEach(thumbnail => {
         thumbnail.addEventListener('click', function() {
+            thumbnails.forEach(img => img.classList.remove('active'));
+            
+            thumbnail.classList.add('active');
             
             mainImage.classList.add("fade-out");
-
+    
             mainImage.addEventListener('transitionend', function() {
                 mainImage.src = thumbnail.src.replace('-thumbnail', '');
-
+    
                 mainImage.classList.remove('fade-out');
                 mainImage.classList.add('fade-in');
-
+    
                 mainImage.addEventListener('transitionend', function() {
                     mainImage.classList.remove('fade-in');
                 }, { once: true });
-
+    
             }, { once: true });
         });
     });
+    
 });
