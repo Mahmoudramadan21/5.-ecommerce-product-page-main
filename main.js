@@ -96,14 +96,12 @@ document.addEventListener("DOMContentLoaded", function() {
     increment.addEventListener("click", function(e) {
         qtyNumber++;
         qty.textContent = qtyNumber;
-        console.log(qtyNumber);
     });
 
     decrement.addEventListener("click", function(e) {
         if (qtyNumber > 1) {
             qtyNumber--;
             qty.textContent = qtyNumber;
-            console.log(qtyNumber);
         }
     });
 
